@@ -51,6 +51,56 @@ def feedback_list():
     conn.close()
     return render_template('feedback-list.html',items = feedbacks)
 
+@app.route('/admin/edit/<id>/')
+def edit_feedback(id=None):
+    conn = sqlite3.connect(DATABASE_URL)
+    c = conn.cursor()
+    sql = 'select ROWID,CategoryName from category'
+    categories = c.execute(sql).fetchall()
+
+    #获取当前id的信息并绑定至form表单，已备修改
+    sql = 'select rowid,* from feedback WHERE rowid = ?'
+    current_feedback = c.execute(sql,(id,)).fetchone()
+    c.close()
+    conn.close()
+    return render_template('edit.html',categories = categories, item = current_feedback)
+    # return str(item[2])
+
+@app.route('/admin/save_edit/',methods=['POST'])
+def save_feedback():
+    if request.method == 'POST':
+        # 获取表单值
+        rowid = request.form.get('rowid',None)
+        subject = request.form['subject']
+        categoryid = request.form.get('category', 1)
+        username = request.form.get('username')
+        email = request.form.get('email')
+        body = request.form.get('body')
+        reply = request.form.get('reply')
+        release_time = request.form.get('releasetime')
+        is_processed =1 if request.form.get('isprocessed',0) == 'on' else 0
+
+        conn = sqlite3.connect(DATABASE_URL)
+        c = conn.cursor()
+        sql = """update feedback set
+                              Subject = ?,
+                              CategoryID = ?,
+                              UserName = ?,
+                              Email = ?,
+                              Body = ?,
+                              Reply = ?,
+                              ReleaseTime = ?,
+                              IsProcessed = ?
+                      WHERE rowid = ?
+
+        """
+        c.execute(sql, (subject, categoryid, username, email, body, reply,release_time, is_processed,rowid))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('feedback_list'))
+
+
+
 @app.route('/admin/feedback/del/<id>')
 def delete_feedback(id):
     conn = sqlite3.connect(DATABASE_URL)
