@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+
+{% block main_content%}
+    <div class="row">
+    <table class="table table-hover">
+        <tr>
+            <td>ID</td>
+            <td>主题</td>
+            <td>分类</td>
+            <td>用户</td>
+            <td>邮箱</td>
+            <td>处理状态</td>
+            <td>提交时间</td>
+            <td>操作</td>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item[0] }}</td>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}</td>
+            <td>{{ item[3] }}</td>
+            <td>{{ item[4] }}</td>
+            <td>{{ item[8] }}</td>
+            <td>{{ item[9] }}</td>
+            <a href="#" class="btn btn-default">查看</a>
+            <a href="#" class="btn btn-default">编辑</a>
+            <a href="#" class="btn btn-default">删除</a>
+
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+{% endblock %}
