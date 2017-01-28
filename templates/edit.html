@@ -11,16 +11,17 @@
                     <div class="form-group">
                         <label for="subject" class="control-label col-md-2">主题</label>
                         <div class="col-md-4">
-                            <input type="text" value="{{ item[1] }}" class="form-control" id="subject" name="subject">
-                            <input type="hidden" id="rowid" name="rowid" value="{{ item[0] }}">
+                            <input type="text" value="{{ item.Subject }}" class="form-control" id="subject" name="subject">
+                            <input type="hidden" id="rowid" name="rowid" value="{{ item.rowid }}">
                         </div>
+
                     </div>
                     <div class="form-group">
                         <label for="category" class="control-label col-md-2">分类</label>
                         <div class="col-md-2">
                             <select name="category" id="category" class="form-control">
                                  {% for category in categories %}
-                                     <option {{ 'selected = selected' if item[2] == category[0] else '1' }} value="{{ category[0] }}">{{ category[1] }}</option>
+                                     <option {{ 'selected = selected' if item.CategoryID == category.rowid else '1' }} value="{{ category.rowid }}">{{ category.CategoryName }}</option>
                                  {% endfor %}
 
                             </select>
@@ -29,13 +30,13 @@
                     <div class="form-group">
                         <label for="username" class="control-label col-md-2">姓名</label>
                         <div class="col-md-2">
-                            <input type="text" value="{{ item[3] }}" class="form-control" id="username" name="username">
+                            <input type="text" value="{{ item.UserName }}" class="form-control" id="username" name="username">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email" class="control-label col-md-2">邮箱</label>
                         <div class="col-md-6">
-                            <input type="text" value="{{ item[4] }}" class="form-control" id="email" name="email">
+                            <input type="text" value="{{ item.Email }}" class="form-control" id="email" name="email">
                         </div>
                     </div>
                     <div class="form-group">
@@ -47,25 +48,25 @@
                     <div class="form-group">
                         <label for="body" class="control-label col-md-2">内容</label>
                         <div class="col-md-6">
-                            <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{ item[6] }}</textarea>
+                            <textarea name="body" id="body" cols="30" rows="10" class="form-control">{{ item.Body }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="reply" class="control-label col-md-2">回复</label>
                         <div class="col-md-6">
-                            <textarea name="reply" id="reply" cols="30" rows="10" class="form-control">{{ item[8] }}</textarea>
+                            <textarea name="reply" id="reply" cols="30" rows="10" class="form-control">{{ item.Reply }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="isprocessed" class="control-label col-md-2">处理</label>
                         <div class="col-md-6">
-                            <input type="checkbox" name="isprocessed" id="isprocessed" {{ 'checked = checked' if item[7] == 1 else ''}}>
+                            <input type="checkbox" name="isprocessed" id="isprocessed" {{ 'checked = checked' if item.IsProcessed == 1 else ''}}>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="releasetime" class="control-label col-md-2">发布时间</label>
                         <div class="col-md-6">
-                            <input type="text" value="{{ item[9] }}" name="releasetime" id="releasetime" class="form-control">
+                            <input type="text" value="{{ item.ReleaseTime }}" name="releasetime" id="releasetime" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-offset-2">
